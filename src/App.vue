@@ -28,22 +28,38 @@
                         <el-switch v-model="scope.row.state" on-text="" off-text="" on-value="已处理" off-value="未处理" @change="handleStateChange(scope.$index, scope.row, $event)"/>
                     </template>
                 </el-table-column>
+                <el-table-column label="备注" :width="70" align="center">
+                    <template scope="scope">
+                        <el-button @click="handleComment(scope.row)" icon="edit" type="text" size="small"></el-button>
+                    </template>
+                </el-table-column>
             </el-table>
         </div>
+        <el-dialog title="备注" :visible.sync="dialogVisible" size="tiny">
+            <el-input type="textarea" :rows="6" v-model="activeRow.comment"></el-input>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false">取消</el-button>
+                <el-button type="primary" @click="submitComment">确定</el-button>
+            </div>
+        </el-dialog>
     </div>
 </template>
 
 <script>
     import axios from 'axios'
     import moment from 'moment'
+    import ElInput from "../node_modules/element-ui/packages/input/src/input.vue";
 
     export default {
+        components: {ElInput},
         data() {
             return {
                 tableData: [],
                 currentPage: 1,
                 pagesize: 10,
-                total: 0
+                total: 0,
+                dialogVisible: false,
+                activeRow:{}
             }
         },
         methods: {
@@ -81,6 +97,21 @@
                 }).catch(error => {
                     console.log(error);
                 });
+            },
+            handleComment(row) {
+                this.activeRow = row;
+                this.dialogVisible = true;
+            },
+            submitComment() {
+                axios({
+                    method: 'post',
+                    url: `http://www.advahealth.com.cn:3939/api/v1/guestbook/be/${this.activeRow.uid}/comment`,
+                    data: { value: this.activeRow.comment }
+                }).then(response => {
+                }).catch(error => {
+                    console.log(error);
+                });
+                this.dialogVisible = false;
             }
         },
         mounted() {
