@@ -46,12 +46,7 @@
 </template>
 
 <script>
-    import axios from 'axios'
-    import moment from 'moment'
-    import ElInput from "../node_modules/element-ui/packages/input/src/input.vue";
-
     export default {
-        components: {ElInput},
         data() {
             return {
                 tableData: [],
