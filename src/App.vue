@@ -48,7 +48,7 @@
 <script>
     import axios from 'axios'
     import moment from 'moment'
-    
+
     export default {
         data() {
             return {
@@ -62,6 +62,7 @@
         },
         methods: {
             refreshTable() {
+                this.currentPage = 1;
                 axios({
                     method: 'get',
                     url: 'http://www.advahealth.com.cn:3939/api/v1/guestbook/be',
