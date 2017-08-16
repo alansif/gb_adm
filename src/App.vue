@@ -1,6 +1,6 @@
 <template>
     <div id="app" style="width:100%;padding:10px 0;position:relative;">
-        <el-button type="primary" size="small" @click="refreshTable" style="margin-left:30px">刷新</el-button>
+        <el-button type="primary" size="small" @click="handleRefresh" style="margin-left:30px">刷新</el-button>
         <el-pagination style="display:inline-block;vertical-align:middle;"
                        @size-change="handleSizeChange"
                        @current-change="handleCurrentChange"
@@ -62,7 +62,6 @@
         },
         methods: {
             refreshTable() {
-                this.currentPage = 1;
                 axios({
                     method: 'get',
                     url: 'http://www.advahealth.com.cn:3939/api/v1/guestbook/be',
@@ -79,6 +78,10 @@
             },
             getTime(v) {
                 return moment(v).format('YYYY-MM-DD HH:mm:ss');
+            },
+            handleRefresh() {
+                this.currentPage = 1;
+                this.refreshTable();
             },
             handleSizeChange(val) {
                 this.pagesize = val;
