@@ -10,6 +10,8 @@
   "dependencies": {
     "axios": "^0.16.2",
     "element-ui": "^1.4.1",
+    "es6-promise": "^4.1.1",
+    "es6-promise-promise": "^1.0.0",
     "moment": "^2.18.1",
     "vue": "^2.4.2"
   },

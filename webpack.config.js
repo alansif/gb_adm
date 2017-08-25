@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const url = require('url')
 const publicPath = ''
+const Promise = require('es6-promise').Promise;
 
 module.exports = (options = {}) => ({
   entry: {
@@ -46,7 +47,10 @@ module.exports = (options = {}) => ({
     }),
     new HtmlWebpackPlugin({
       template: 'src/index.html'
-    })
+    }),
+      new webpack.ProvidePlugin({
+          Promise: 'es6-promise-promise', // works as expected
+      })
   ],
   resolve: {
     alias: {
